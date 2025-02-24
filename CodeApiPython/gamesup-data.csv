@@ -1,0 +1,4 @@
+game_id,game_name,game_category,game_genre,game_numEdition,inventory,game_author,game_publisher
+101,Pandemic,1,1,123456,14,2,3
+102,Catan,2,1,123456,12,3,1
+103,Ticket To Ride,3,1,123456,12,1,2
