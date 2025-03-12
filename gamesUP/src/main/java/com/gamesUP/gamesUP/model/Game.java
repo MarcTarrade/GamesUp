@@ -21,4 +21,10 @@ public class Game {
     private Integer numEdition;
     @OneToOne
     private Inventory inventory;
+
+    public Game(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+    public Game(){}
 }

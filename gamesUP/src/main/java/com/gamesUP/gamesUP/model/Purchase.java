@@ -19,4 +19,10 @@ public class Purchase {
 	private Boolean paid;
 	private Boolean delivered;
 	private Boolean archived;
+
+	public Purchase(Long id, Boolean paid) {
+		this.id = id;
+		this.paid = paid;
+	}
+	public Purchase() {}
 }

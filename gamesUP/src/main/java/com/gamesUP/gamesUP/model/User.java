@@ -22,4 +22,9 @@ public class User {
     private Wishlist wishlist;
     @ManyToOne
     private Role role;
+
+    public User(Long id, String nom) {
+        this.nom = nom;
+    }
+    public User(){}
 }

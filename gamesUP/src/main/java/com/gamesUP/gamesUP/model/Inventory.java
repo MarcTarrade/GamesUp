@@ -15,4 +15,10 @@ public class Inventory {
 	@OneToOne
 	private Game game;
 	private Integer stock;
+
+	public Inventory(Long id, Game game) {
+		this.id = id;
+		this.game = game;
+	}
+	public Inventory(){}
 }

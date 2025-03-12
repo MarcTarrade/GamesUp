@@ -16,4 +16,10 @@ public class Wishlist {
     private User user;
     @OneToMany
     private List<Game> games;
+
+    public Wishlist(Long id, User user) {
+        this.id = id;
+        this.user = user;
+    }
+    public Wishlist(){}
 }
