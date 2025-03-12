@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PurchaseServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gamesUP</a> &gt; <a href="index.source.html" class="el_package">com.gamesUP.gamesUP.services.impl</a> &gt; <span class="el_source">PurchaseServiceImpl.java</span></div><h1>PurchaseServiceImpl.java</h1><pre class="source lang-java linenums">package com.gamesUP.gamesUP.services.impl;
+
+import com.gamesUP.gamesUP.exceptions.EntityDoesntExistsException;
+import com.gamesUP.gamesUP.model.Author;
+import com.gamesUP.gamesUP.model.Purchase;
+import com.gamesUP.gamesUP.repository.PurchaseRepository;
+import com.gamesUP.gamesUP.services.PurchaseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L16">public class PurchaseServiceImpl implements PurchaseService {</span>
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+
+    @Override
+    public List&lt;Purchase&gt; findAll() {
+<span class="fc" id="L22">        List&lt;Purchase&gt; purchases = new ArrayList&lt;Purchase&gt;();</span>
+<span class="fc" id="L23">        purchaseRepository.findAll().forEach(purchases::add);</span>
+<span class="fc" id="L24">        return purchases;</span>
+    }
+    @Override
+    public Purchase findById(Long id) {
+<span class="fc" id="L28">        Optional&lt;Purchase&gt; optional = purchaseRepository.findById(id);</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (optional.isPresent()) {</span>
+<span class="fc" id="L30">            return optional.get();</span>
+        }
+<span class="nc" id="L32">        throw new EntityDoesntExistsException();</span>
+    }
+    @Override
+    public Purchase create(Purchase purchase) {
+<span class="fc" id="L36">        return purchaseRepository.save(purchase);</span>
+    }
+
+    @Override
+    public void delete(Long id) {
+<span class="fc" id="L41">        purchaseRepository.deleteById(id);</span>
+<span class="fc" id="L42">    }</span>
+    @Override
+    public Purchase partialUpdate(Long id, Purchase newPurchase) {
+<span class="fc" id="L45">        Purchase existingPurchase = findById(id);</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if(newPurchase.getDate() != null) {</span>
+<span class="nc" id="L47">            existingPurchase.setDate(newPurchase.getDate());</span>
+        }
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if(newPurchase.getPaid() != null) {</span>
+<span class="nc" id="L50">            existingPurchase.setPaid(newPurchase.getPaid());</span>
+        }
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        if(newPurchase.getDelivered() != null) {</span>
+<span class="nc" id="L53">            existingPurchase.setDelivered(newPurchase.getDelivered());</span>
+        }
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if(newPurchase.getArchived() != null) {</span>
+<span class="nc" id="L56">            existingPurchase.setArchived(newPurchase.getArchived());</span>
+        }
+<span class="pc bpc" id="L58" title="3 of 4 branches missed.">        if(newPurchase.getLine() != null &amp;&amp; !newPurchase.getLine().isEmpty()) {</span>
+<span class="nc" id="L59">            existingPurchase.setLine(newPurchase.getLine());</span>
+        }
+<span class="fc" id="L61">        return purchaseRepository.save(existingPurchase);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

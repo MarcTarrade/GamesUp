@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gamesUP</a> &gt; <a href="index.source.html" class="el_package">com.gamesUP.gamesUP.controller</a> &gt; <span class="el_source">GameController.java</span></div><h1>GameController.java</h1><pre class="source lang-java linenums">package com.gamesUP.gamesUP.controller;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.gamesUP.gamesUP.model.Game;
+import com.gamesUP.gamesUP.services.GameService;
+import com.gamesUP.gamesUP.services.GameService;
+import jakarta.annotation.security.RolesAllowed;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
+
+import com.gamesUP.gamesUP.model.Game;
+
+@RestController
+<span class="fc" id="L18">public class GameController {</span>
+    @Autowired
+    private GameService gameService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @GetMapping(&quot;/game&quot;)
+    @RolesAllowed(value = {&quot;ADMIN&quot;})
+    public List&lt;Game&gt; getAllGame() {
+<span class="fc" id="L27">        return gameService.findAll();</span>
+    }
+
+    @GetMapping(&quot;/gameSearch&quot;)
+    public List&lt;Game&gt; searchGames(@RequestParam(value = &quot;nom&quot;, required = false) String nom, @RequestParam(value = &quot;auteur&quot;, required = false) String auteur, @RequestParam(value = &quot;genre&quot;, required = false) String genre, @RequestParam(value = &quot;category&quot;, required = false) String category, @RequestParam(value = &quot;publisher&quot;, required = false) String publisher) {
+<span class="nc" id="L32">        return gameService.searchGames(nom, auteur, genre, category, publisher);</span>
+    }
+
+    @GetMapping(&quot;/game/{id}&quot;)
+    public Game getGame(@PathVariable Long id) {
+<span class="fc" id="L37">        return gameService.findById(id);</span>
+    }
+
+    @PostMapping(&quot;/game&quot;)
+    public Game addGame(@RequestBody Game game) {
+<span class="fc" id="L42">        return gameService.create(game);</span>
+    }
+
+    @PatchMapping(&quot;/game/{id}&quot;)
+    public Game partialUpdate(@PathVariable Long id, @RequestBody Game game) {
+<span class="fc" id="L47">        return gameService.partialUpdate(id, game);</span>
+    }
+
+    @DeleteMapping(&quot;/game/{id}&quot;)
+    public void delete(@PathVariable Long id){
+<span class="fc" id="L52">        gameService.delete(id);</span>
+<span class="fc" id="L53">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
